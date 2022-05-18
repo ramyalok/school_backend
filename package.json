@@ -1,0 +1,39 @@
+{
+  "name": "erpproject",
+  "version": "0.0.1",
+  "description": "academic management for erp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramyalok/school_backend.git"
+  },
+  "author": "k ramya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramyalok/school_backend/issues"
+  },
+  "homepage": "https://github.com/ramyalok/school_backend#readme",
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  },
+  "dependencies": {
+    "@graphile/pg-pubsub": "^4.12.2",
+    "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "moment": "^2.29.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16",
+    "pg": "^8.7.3",
+    "postgraphile": "^4.12.9",
+    "postgraphile-plugin-connection-filter": "^2.3.0",
+    "sequelize": "^6.19.1"
+  }
+}
