@@ -30,6 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       class_section.hasMany(models.user_profile, {
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
+        foreignKey: 'class_std',
+        as:"standard_class"
+      })
+      class_section.hasMany(models.admission, {
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
         foreignKey: 'class_std'
       })
     }

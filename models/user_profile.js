@@ -22,16 +22,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'updated_by'
       })
 
-      user_profile.hasOne(models.class_section, {
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
-        foreignKey: 'created_by'
-      })
-      user_profile.hasOne(models.class_section, {
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
-        foreignKey: 'updated_by'
-      })
+      // user_profile.hasOne(models.class_section, {
+      //   onDelete: 'SET NULL',
+      //   onUpdate: 'CASCADE',
+      //   foreignKey: 'created_by'
+      // })
+      // user_profile.hasOne(models.class_section, {
+      //   onDelete: 'SET NULL',
+      //   onUpdate: 'CASCADE',
+      //   foreignKey: 'updated_by'
+      // })
 
       user_profile.belongsTo(models.user_role, {
         onDelete: 'SET NULL',
@@ -41,7 +41,8 @@ module.exports = (sequelize, DataTypes) => {
       user_profile.belongsTo(models.class_section, {
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
-        foreignKey: 'class_std'
+        foreignKey: 'class_std',
+        as:"standard_class"
       })
 
     }

@@ -3,6 +3,7 @@ const { generateToken } = require('../../jwt') ;
 // var bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
+const { sendOutResp ,validate_email} = require("../../utils");
 
 const sendOut = (res, payload) => {
     res.json({
@@ -10,7 +11,8 @@ const sendOut = (res, payload) => {
         success: true,
         auth_token: 'Bearer ' + generateToken({
             id: payload.id,
-            company_name : payload.company_name,
+            first_name : payload.first_name,
+            last_name: payload.last_name,
             role_id : payload.role_id,
             email : payload.email,
             mobile_no : payload.mobile_no
@@ -20,7 +22,7 @@ const sendOut = (res, payload) => {
 }
 module.exports = {
     login : async(req, res) => {
-
+        console.log("=======LOGIN ENTRY===========")
         //Checking wheather username and password are sent as request body
         if (!req.body.user_name ) {
             //Sending Bad Request as response
@@ -61,36 +63,14 @@ module.exports = {
             where: where,
             include: [
                 {
-                  model: models.user_roles,
+                  model: models.user_role
                 },
                 {
-                  model: models.wallet,
-                },
-                {
-                    model: models.bookings,
-                    limit:10,
-                    offset:0,
-                    order : sequelize.literal('updated_at DESC'),
-                    where:{
-                        booking_status_id : 3
-                    },
-                    include : [
-                        {
-                            model:models.booking_status
-                        }
-                    ]
-                },
-                {
-                    model : models.documents,
-                    as : "documents",
-                    attributes : ["id","url","doc_for","doc_category","vendor_id"]
-                    // where: {
-                    //     doc_category : {
-                    //         [sequelize.Op.iLike] : '%profile_picture%'
-                    //     }
-                    // }
+                    model : models.class_section,
+                    as :"standard_class"
                 }
-            ]
+            ],
+            // logging : true
         })
         .then(data => {
             //If user exist
@@ -104,16 +84,16 @@ module.exports = {
 
                 // if (userData.password_hash !== hashedPassword) {
                 
-                if (bcrypt.compareSync(`${req.body.password}`, userData.password) !== true) {
-                    console.log("INCORRECT PASSWORD")    
-                    res.status(401).json({
-                        status: 401,
-                        message: 'Invalid Password',
-                        success: false
-                    }).end();
+                // if (bcrypt.compareSync(`${req.body.password}`, userData.password) !== true) {
+                //     console.log("INCORRECT PASSWORD")    
+                //     res.status(401).json({
+                //         status: 401,
+                //         message: 'Invalid Password',
+                //         success: false
+                //     }).end();
 
-                    return false;
-                };
+                //     return false;
+                // };
                 sendOut(res, userData);
                 
             } else {

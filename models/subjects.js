@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class user_role extends Model {
+  class subjects extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,24 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      user_role.hasOne(models.user_profile, {
-        onDelete: "SET NULL",
-        onUpdate: "CASCADE",
-        foreignKey: "role_id"
-      })
     }
   }
-  user_role.init({
-    id:{
-      type: DataTypes.INTEGER,
-      allowNull:false,
-      autoIncrement:true,
-      primaryKey:true
+  subjects.init({
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
     },
-    role_name: {
+    subject_name: {
       type: DataTypes.STRING,
-      allowNull : false,
-      unique: true
+      allowNull:false
+    },
+    class_std :{
+      type : DataTypes.INTEGER,
+      allowNull:false
     },
     is_active:{
       type: DataTypes.BOOLEAN,
@@ -42,18 +40,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       type: DataTypes.DATE
     },
-    // created_by: {
-    //   type: DataTypes.UUID,
-    //   allowNull:true
-    // },
-    // updated_by: {
-    //   type: DataTypes.UUID,
-    //   allowNull:true
-    // }
-  }, {
+    created_by: {
+      type: DataTypes.UUID,
+      allowNull:true
+    },
+    updated_by: {
+      type: DataTypes.UUID,
+      allowNull:true
+    }
+    }, {
     sequelize,
-    modelName: 'user_role',
-    underscored: true,
+    modelName: 'subjects',
   });
-  return user_role;
+  return subjects;
 };

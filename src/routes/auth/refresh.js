@@ -2,12 +2,13 @@ const models = require('../../../models');
 const { generateToken, verifyToken } = require('../../jwt');
 const { hash,sendOutResp:sendResp, generateSalt } = require("../../utils");
 
-const sendout = (res, status, msg, success, data) => {
+const sendout = (res, status, msg, success, data,auth_token) => {
 
     res.json({
       status: status,
       success: success,
       message: msg,
+      auth_token:auth_token,
       user: data
     });
 }
@@ -23,9 +24,12 @@ const giveMeUserId = (token) => {
 }
 
 const Refresh = async (req, res) => {
-
+    let authorization = req.headers.authorization||req.headers.Authorization
+    console.log(authorization,"auth")
     //Getting the user_id from the auth token
-    const user_id = await giveMeUserId(req.headers.authorization ? req.headers.authorization.split(" ")[1] : '');
+    const user_id = await giveMeUserId(authorization ? authorization.split(" ")[1] : '');
+
+    console.log(user_id ,"=======user id========")
 
     //Fetching the username
     models.user_profile.findOne({
@@ -37,10 +41,10 @@ const Refresh = async (req, res) => {
         include: [
            
             {
-                model: models.user_roles,
+                model: models.user_role
             },
             {
-                model : models.class_sections
+                model : models.class_section
             }
         ]
     })
@@ -56,7 +60,7 @@ const Refresh = async (req, res) => {
                 }).end();
             }
 
-            sendout(res,201,"user data",true,userData);
+            sendout(res,201,"user data",true,userData,authorization);
         } else {
             //No user found
             res.status(401).json({

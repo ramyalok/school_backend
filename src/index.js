@@ -8,7 +8,7 @@ const logger = require("morgan");
 const  cookieParser = require('cookie-parser')
 const  dotenv = require("dotenv");
 //Requring Routes
-// const routers = require("./routes")
+const routers = require("./routes")
 const postgraphileRouter = require("./middlewares/postgraphile");
 
 const port = process.env.PORT || "3001";
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 //Routes
-// app.use('/api/v1/',routers);
+app.use('/api/v1/',routers);
 app.use("/public", express.static("public"));
 //Postgrahile middleware setup
 app.use(postgraphileRouter);
