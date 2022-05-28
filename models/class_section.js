@@ -38,6 +38,12 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         foreignKey: 'class_std'
       })
+
+      class_section.beforeCreate(async(class_data) => {
+        var count = await class_section.count({});
+        class_data.id = count+1;
+      })
+    
     }
   }
   class_section.init({

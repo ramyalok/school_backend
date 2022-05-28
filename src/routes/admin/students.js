@@ -41,7 +41,7 @@ module.exports = {
                 where: { id: req.body.student_id },
                 returning: true,
             });
-            return sendOutResp(res,201,"Student updated successfully",true)
+            return sendOutResp(res,201,"Student updated successfully",true,student_data)
 
         }
         catch (err) {

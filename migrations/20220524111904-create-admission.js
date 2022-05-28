@@ -8,7 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      first_name: {
+        type: Sequelize.STRING
+      },
+      last_name: {
         type: Sequelize.STRING
       },
       email:{
@@ -20,8 +23,45 @@ module.exports = {
       address:{
         type:Sequelize.STRING
       },
+      email:{
+        type:Sequelize.STRING
+      },
+      mobile:{
+        type:Sequelize.STRING
+      },
+      description:{
+        type:Sequelize.STRING
+      },
       query:{
         type:Sequelize.STRING
+      },
+      father_name:{
+        type:Sequelize.STRING
+      },
+      mother_name:{
+        type:Sequelize.STRING
+      },
+      parent_email:{
+        type:Sequelize.STRING
+      },
+      father_qualification:{
+        type:Sequelize.STRING
+      },
+      mother_qualification:{
+        type:Sequelize.STRING
+      },
+      father_monthly_income:{
+        type:Sequelize.STRING
+      },
+      mother_monthly_income:{
+        type:Sequelize.STRING
+      },
+      no_of_childrens:{
+        type:Sequelize.INTEGER
+      },
+      is_approved:{
+        type:Sequelize.BOOLEAN,
+        defaultValue:false
       },
       class_std: {
         type: Sequelize.INTEGER,
@@ -51,6 +91,7 @@ module.exports = {
       },
       created_by: {
         type: Sequelize.UUID,
+        allowNull:true,
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
         references: {
@@ -60,6 +101,7 @@ module.exports = {
       },
       updated_by: {
         type: Sequelize.UUID,
+        allowNull:true,
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
         references: {
@@ -67,7 +109,7 @@ module.exports = {
           key: 'id'
         }
       }    
-    },{underscored:true});
+    },{underscored:true,timestamps:false});
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('admissions');

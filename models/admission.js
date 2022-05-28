@@ -35,10 +35,20 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    name: {
+    first_name: {
+      type: DataTypes.STRING
+    },
+    last_name: {
       type: DataTypes.STRING
     },
     email:{
+      type:DataTypes.STRING
+    },
+    is_approved:{
+      defaultValue:false,
+      type:DataTypes.BOOLEAN
+    },
+    description:{
       type:DataTypes.STRING
     },
     mobile_no:{
@@ -55,6 +65,39 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:true
     },
+    father_name:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    mother_name:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    parent_email:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    father_qualification:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    mother_qualification:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    father_monthly_income:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    mother_monthly_income:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
+    no_of_childrens:{
+      allowNull:false,
+      type:DataTypes.INTEGER
+    },
+
     contact_type:{
       type:DataTypes.STRING,
       allowNull:true
@@ -71,6 +114,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       type: DataTypes.DATE
     },
+    // createdAt: {
+    //   allowNull: true,
+    //   type: DataTypes.DATE
+    // },
+    // updatedAt: {
+    //   allowNull: true,
+    //   type: DataTypes.DATE
+    // },
     created_by: {
       type: DataTypes.UUID,
       allowNull:true
@@ -81,6 +132,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
+    timestamps:false,
     modelName: 'admission',
   });
   return admission;

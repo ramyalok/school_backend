@@ -50,7 +50,7 @@ module.exports = {
           key: 'id'
         }
       }    
-    },{underscored: true});
+    },{underscored: true,timestamps:false});
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('subjects');

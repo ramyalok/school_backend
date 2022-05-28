@@ -4,6 +4,7 @@ const teacherRouter = express.Router();
 const Student = require("../admin/students");
 const Class_Section = require(".");
 const Subjects = require("./subjects");
+const exam = require('../admin/exam');
 
 //================== STUDENTS ===================//
 teacherRouter.post("/student/create",Student.create_students);
@@ -19,5 +20,9 @@ teacherRouter.post("/class/delete",Class_Section.delete_class);
 teacherRouter.post("/subject/create", Subjects.create_subjects);
 teacherRouter.post("/subject/edit",Subjects.edit_subject);
 teacherRouter.post("/subject/delete",Subjects.delete_subject);
+
+//=====================EXAM======================//
+teacherRouter.post("/exam/create",exam.create_exam)
+teacherRouter.post("/exam/edit",exam.edit_exam)
 
 module.exports = teacherRouter;

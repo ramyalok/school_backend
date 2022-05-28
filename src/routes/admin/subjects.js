@@ -7,12 +7,12 @@ module.exports = {
             if (Object.keys(req.body).length === 0 ) {
                 return sendOutResp(res,404,"No Subject data found",false)
             }
-            var subject = req.body;
+            var {subject_data} = req.body;
             
-            subject.created_by =  res.locals.user_profile_id;
-            subject.updated_by =  res.locals.user_profile_id;
+            subject_data.created_by =  res.locals.user_profile_id;
+            subject_data.updated_by =  res.locals.user_profile_id;
  
-            var subject_result = await models.subjects.create(subject);
+            var subject_result = await models.subjects.create(subject_data);
 
             if(!subject_result) {
                 console.log("========SUBJECT DATA NOT CREATED========")
@@ -30,14 +30,14 @@ module.exports = {
             if (!req.body.subject_id) {
                 return sendOutResp(res,404,"No Subject Id found",false)
             }
-            var {subject} = req.body;
+            var {subject_data} = req.body;
             
-            subject.updated_at =  new Date();
-            subject.updated_by =  res.locals.user_profile_id;
+            subject_data.updated_at =  new Date();
+            subject_data.updated_by =  res.locals.user_profile_id;
 
-            let subject_data = await models.subjects.update(subject, {
+            let subject_result = await models.subjects.update(subject_data, {
                 where: { id: req.body.subject_id },
-                returning: true,
+                returning: true
             });
             return sendOutResp(res,201,"Subject updated successfully",true)
 

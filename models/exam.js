@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         foreignKey: 'class_std'
       })
+      exam.beforeCreate(async(exam_data) => {
+        var count = await exam.count({});
+        exam_data.id = count+1;
+      })
     }
   }
   exam.init({

@@ -27,7 +27,7 @@ module.exports = {
                 console.log("========STUDENT DATA NOT CREATED========")
                 return sendOutResp(res,404,"teacher data not created",false)
             }
-            return sendOutResp(res,201,"teacher created successfully",true,v_data)
+            return sendOutResp(res,201,"teacher created successfully",true)
         }
         catch (err) {
             console.log("==Error on creating the Teacher");
