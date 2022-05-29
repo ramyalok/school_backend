@@ -8,16 +8,18 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    //  queryInterface.addColumn('exams', 'is_active', {
-    //   type: Sequelize.BOOLEAN,
-    //   defaultValue:true,
+    // queryInterface.addColumn('admissions', 'gender', {
+    //   type: Sequelize.ENUM("male","female","others"),
     //   allowNull : true
     // })
-    queryInterface.addColumn('user_profiles', 'gender', {
-      type: Sequelize.ENUM('male','female','others'),
+    queryInterface.addColumn('admissions', 'gender_name', {
+      type: Sequelize.ENUM("male","female","others"),
       allowNull : true
     })
-
+    queryInterface.addColumn('admissions', 'dob', {
+      type: Sequelize.DATE,
+      allowNull : true
+    })
   },
 
   async down (queryInterface, Sequelize) {
@@ -27,8 +29,8 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    //  queryInterface.removeColumn('exams', 'is_active');
-    //  queryInterface.removeColumn('user_profiles', 'gender')
+     queryInterface.removeColumn('admissions', 'dob')
+     queryInterface.removeColumn('admissions', 'gender_name')
 
 
   }

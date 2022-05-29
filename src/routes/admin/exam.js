@@ -50,5 +50,28 @@ module.exports = {
             return sendOutResp(res,404,`Exam Data's are not updated`,false)
 
         }
+    },
+    delete_exam : async (req,res,next) => {
+        try {
+            if (!req.body.delete_id) {
+                return sendOutResp(res,404,"No Exam Id found",false)
+            }
+            var exam_data ={}
+            
+            exam_data.updated_at =  new Date();
+            exam_data.updated_by =  res.locals.user_profile_id;
+            exam_data.is_active = false
+            let class_section_data = await models.exam.update(exam_data, {
+                where: { id: req.body.delete_id },
+                returning: true
+            });
+            return sendOutResp(res,201,"Exam Data deleted successfully",true)
+
+        }
+        catch (err) {
+            console.log("Error on updating the class" ,err);
+            return sendOutResp(res,404,`Exam Data's are not deleted`,false)
+
+        }
     }
 }

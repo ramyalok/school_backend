@@ -54,13 +54,13 @@ module.exports = {
     },
     delete_class : async (req,res,next) => {
         try {
-            if (!req.body.class_id) {
+            if (!req.body.delete_id) {
                 return sendOutResp(res,404,"No Subject Id found",false)
             }
-            var {class_section} = req.body;
+            var class_section = {}
             class_section.is_active = false;
             let class_section_data = await models.class_section.update(class_section, {
-                where: { id: req.body.class_id },
+                where: { id: req.body.delete_id },
                 returning: true,
             });
             return sendOutResp(res,201,"Class data deleted successfully",true)
@@ -117,6 +117,54 @@ module.exports = {
 
             let admission_data = await models.admission.update(admission, {
                 where: { id: req.body.admission_id },
+                returning: true,
+            });
+            return sendOutResp(res,201,"Admission updated successfully",true)
+
+        }
+        catch (err) {
+            console.log("Error on updating the subject" ,err);
+            return sendOutResp(res,404,`Subject data's are not updated`,false)
+
+        }
+    },
+    status_admission : async (req,res,next) => {
+        try {
+            if (!req.body.admission_id) {
+                return sendOutResp(res,404,"No Class Id found",false)
+            }
+            var {admission} = req.body;
+            
+            admission.updated_at =  new Date();
+            admission.updated_by =  res.locals.user_profile_id;
+            admission.is_approved = true;
+
+            let admission_data = await models.admission.update(admission, {
+                where: { id: req.body.admission_id },
+                returning: true,
+            });
+            return sendOutResp(res,201,"Admission updated successfully",true)
+
+        }
+        catch (err) {
+            console.log("Error on updating the subject" ,err);
+            return sendOutResp(res,404,`Subject data's are not updated`,false)
+
+        }
+    },
+    delete_admission : async (req,res,next) => {
+        try {
+            if (!req.body.delete_id) {
+                return sendOutResp(res,404,"No Class Id found",false)
+            }
+            var admission = {};
+            
+            admission.updated_at =  new Date();
+            admission.updated_by =  res.locals.user_profile_id;
+            admission.is_active = false;
+
+            let admission_data = await models.admission.update(admission, {
+                where: { id: req.body.delete_id },
                 returning: true,
             });
             return sendOutResp(res,201,"Admission updated successfully",true)

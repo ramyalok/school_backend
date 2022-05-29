@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      subjects.beforeCreate(async(subject_data) => {
+        var count = await subjects.count({});
+        subject_data.id = count+1;
+      })
     }
   }
   subjects.init({

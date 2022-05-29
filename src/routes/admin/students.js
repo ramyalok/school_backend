@@ -7,12 +7,16 @@ module.exports = {
             if (Object.keys(req.body).length === 0 ) {
                 return sendOutResp(res,404,"No Student data found",false)
             }
+            console.log(req.path,"===")
             var {student} = req.body;
             console.log("=========student created=========")
             student.created_by =  res.locals.user_profile_id;
             student.updated_by =  res.locals.user_profile_id;
             student.role_id = 4;
             student.password = "12345678";
+            if (student.gender) {
+                student.gender = student.gender.toLowerCase()
+            }
 
             var student_data = await models.user_profile.create(student);
 
@@ -37,6 +41,10 @@ module.exports = {
             student.updated_at =  new Date();
             student.updated_by =  res.locals.user_profile_id;
 
+            if (student.gender) {
+                student.gender = student.gender.toLowerCase()
+            }
+
             let student_data = await models.user_profile.update(student, {
                 where: { id: req.body.student_id },
                 returning: true,
@@ -52,13 +60,13 @@ module.exports = {
     },
     delete_student : async (req,res,next) => {
         try {
-            if (!req.body.student_id) {
+            if (!req.body.delete_id) {
                 return sendOutResp(res,404,"No Student Id found",false)
             }
-            var {subject} = req.body;
-            subject.is_active = false
-            let subject_data = await models.subjects.update(subject, {
-                where: { id: req.body.student_id },
+            let student={}
+            student.is_active = false
+            let subject_data = await models.user_profile.update(student, {
+                where: { id: req.body.delete_id },
                 returning: true,
             });
             return sendOutResp(res,201,"Student data deleted successfully",true)

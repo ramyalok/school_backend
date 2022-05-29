@@ -9,6 +9,10 @@ const exam = require('./exam');
 adminRouter.post("/student/create",Student.create_students);
 adminRouter.post("/student/edit",Student.edit_student);
 adminRouter.post("/student/delete",Student.delete_student);
+//=================TEACHER ======================//
+adminRouter.post("/teacher/create",Student.create_students);
+adminRouter.post("/teacher/edit",Student.edit_student);
+adminRouter.post("/teacher/delete",Student.delete_student);
 
 //================= CLASS SECTION =================//
 adminRouter.post("/class/create",Class_Section.create_class);
@@ -22,10 +26,15 @@ adminRouter.post("/subject/delete",Subjects.delete_subject);
 
 //=============ADMISSION=================//
 adminRouter.post("/admission/create",Class_Section.create_admission);
-adminRouter.post("/admission/edit",Class_Section.edit_admission)
+adminRouter.post("/admission/edit",Class_Section.edit_admission);
+adminRouter.post("/admission/status",Class_Section.status_admission)
+adminRouter.post("/admission/delete",Class_Section.delete_admission)
+
 
 //===================EXAM===============//
 adminRouter.post("/exam/create",exam.create_exam)
 adminRouter.post("/exam/edit",exam.edit_exam);
+adminRouter.post("/exam/delete",exam.delete_exam);
+
 
 module.exports = adminRouter;

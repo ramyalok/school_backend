@@ -97,7 +97,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       type:DataTypes.INTEGER
     },
-
+    dob: {
+      allowNull: true,
+      type: DataTypes.DATE
+    },
+    gender_name : {
+      type :DataTypes.ENUM("male","female","others"),
+      allowNull: true
+    },
     contact_type:{
       type:DataTypes.STRING,
       allowNull:true
